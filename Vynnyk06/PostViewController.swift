@@ -24,6 +24,7 @@ class PostViewController: UIViewController {
     @IBOutlet weak var numComents: UILabel!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let _: Void = URLSession.shared.dataTask(with: URL(string:"https://www.reddit.com/r/ios/top.json?limit=1")!){
