@@ -10,7 +10,6 @@ import UIKit
 
 class PostListViewController: UITableViewController {
    
-    private var posts = Welcome.self
     
     
     override func viewDidLoad() {
@@ -25,52 +24,7 @@ class PostListViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func makeRequest(limit : Int, index : Int){
-    URLSession.shared.dataTask(with: URL(string:"https://www.reddit.com/r/ios/top.json?limit=\(limit)")!){
-                data, response , error in
-                if let dataResponse = data  {
-                    do{
-                    let decoder = JSONDecoder()
-                        let d = try? decoder.decode(Welcome.self, from: dataResponse)
-
-                        print(d!.data.children[index].data.author)
-
-                     DispatchQueue.main.async {
-                        posts = d!
-                         let currTime = Int(NSDate().timeIntervalSince1970)
-    //
-                        let timeDiff = currTime - d!.data.children[index].data.createdUtc
-                         
-                         var timePassed: String
-                         
-                         switch timeDiff {
-                         case let td where td < 60:
-                             timePassed = "now";
-                             
-                         case let td where td < 3600:
-                             timePassed = "\(Int(td/60))m";
-                             
-                         case let td where td < 86400:
-                             timePassed = "\(Int(td/3600))h";
-                             
-                         case let td where td < 2678400:
-                             timePassed = "\(Int(td/86400))d";
-                             
-                         case let td where td < 31536000:
-                             timePassed = "\(Int(td/2678400))month"
-                             
-                         default:
-                             timePassed = "\(Int(timeDiff/31536000))";
-                             
-                         }
-                         
-
-
-                    }
-                 }
-
-                }
-            }.resume();
+    
     
 
 
